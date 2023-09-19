@@ -1,29 +1,32 @@
 #include<iostream>
 
-char *read_line(void) {
-    // TODO
-    return "";
+using namespace std;
+
+string read_line(void) {
+    string s;
+    cin >> s; 
+    return s;
 }
 
-char **split_line(char* line) {
+string *split_line(string line) {
     // TODO
-    char *temp1 = "";
-    char **temp2 = &temp1;
+    string temp1 = "";
+    string *temp2 = &temp1;
     return temp2;
 }
 
-int execute(char **args) {
+int execute(string *args) {
     // TODO
-    return 0;
+    return 1;
 }
 
 void shell_loop(void) {
-    char *line;
-    char **args;
+    string line;
+    string *args;
     int status;
 
     do {
-        std::cout << "> " << std::endl;
+        cout << "><> " << endl;
         line = read_line();
         args = split_line(line);
         status = execute(args);
