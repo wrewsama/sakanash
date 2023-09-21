@@ -1,32 +1,38 @@
 #include<iostream>
+#include<vector>
+#include<sstream>
 
 using namespace std;
 
 string read_line(void) {
     string s;
-    cin >> s; 
+    getline(cin, s);
     return s;
 }
 
-string *split_line(string line) {
-    // TODO
-    string temp1 = "";
-    string *temp2 = &temp1;
-    return temp2;
+vector<string> split_line(string line) {
+    stringstream ss(line);
+    vector<string> res;
+    string buf;
+    while (getline(ss, buf, ' ')) {
+        res.push_back(buf);
+    }
+
+    return res;
 }
 
-int execute(string *args) {
+int execute(vector<string> &args) {
     // TODO
     return 1;
 }
 
 void shell_loop(void) {
     string line;
-    string *args;
+    vector<string> args;
     int status;
 
     do {
-        cout << "><> " << endl;
+        cout << "><> ";
         line = read_line();
         args = split_line(line);
         status = execute(args);
