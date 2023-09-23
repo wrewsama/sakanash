@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<sstream>
+#include "executables.h"
 
 using namespace std;
 
@@ -22,8 +23,13 @@ vector<string> split_line(string line) {
 }
 
 int execute(vector<string> &args) {
-    // TODO
-    return 1;
+    string cmd = args[0];
+    if (command_functions.find(cmd) == command_functions.end()) {
+        // TODO: execvp these commands from PATH
+        return 0;
+    }
+    int res = command_functions[cmd](args);
+    return res;
 }
 
 void shell_loop(void) {
@@ -40,6 +46,9 @@ void shell_loop(void) {
 }
 
 int main() {
+    // set up executables
+    setup_commands();
+
     // run command loop
     shell_loop();
     
