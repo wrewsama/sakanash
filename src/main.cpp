@@ -32,6 +32,7 @@ int launch(vector<string> &args) {
         }
         arr[args.size()] = NULL;
         execvp(args[0].c_str(), arr);
+        return 0;
     } else {
         int status;
         wait(&status);
