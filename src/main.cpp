@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #include<sstream>
+#include <sys/wait.h>
+#include<cstring>
 #include "executables.h"
 
 using namespace std;
@@ -22,11 +24,29 @@ vector<string> split_line(string line) {
     return res;
 }
 
+int launch(vector<string> &args) {
+    if (fork() == 0) {
+        char *arr[args.size() + 1];
+        for (int i; i < args.size(); i++) {
+            strcpy(arr[i], args[i].c_str());
+        }
+        arr[args.size()] = NULL;
+        execvp(args[0].c_str(), arr);
+    } else {
+        int status;
+        wait(&status);
+        if (status != 0) {
+            cout << "Error: " << status << endl;
+            return 0;
+        }
+        return 1;
+    }
+}
+
 int execute(vector<string> &args) {
     string cmd = args[0];
     if (command_functions.find(cmd) == command_functions.end()) {
-        // TODO: execvp these commands from PATH
-        return 0;
+        return launch(args);
     }
     int res = command_functions[cmd](args);
     return res;
