@@ -30,6 +30,15 @@ int cd(vector<string> &input) {
     return 1;
 }
 
+int help(vector<string> &input) {
+    cout << "Sakana Shell" << endl;
+    cout << "Includes the following built-in methods" << endl;
+    for (auto cmd : command_functions) {
+        cout << cmd.first << endl;
+    }
+    return 1;
+}
+
 int exit(vector<string> &input) {
     cout << "Exiting sakanaSh" << endl;
     return 0;
@@ -40,4 +49,5 @@ void setup_commands() {
     command_functions["cd"] = cd;
     command_functions["pwd"] = pwd;
     command_functions["exit"] = exit;
+    command_functions["help"] = help;
 }
